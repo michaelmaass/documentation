@@ -1,13 +1,8 @@
 {
   "private": true,
-  "version": "2.1.0",
+  "workspaces": ["yooessentials"],
   "scripts": {
-    "dev": "vuepress dev src",
-    "build": "vuepress build src",
-    "watch": "npm run dev",
+    "start-yooess": "cd ./yooessentials && yarn start",
     "checklinks": "npx linkinator 'src/**/*.md' --markdown --skip '^http?s://' --verbosity error"
-  },
-  "devDependencies": {
-    "vuepress": "^1.0.0"
   }
 }

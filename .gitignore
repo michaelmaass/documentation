@@ -1,9 +1,6 @@
-*.log
-
-.idea
-.DS_Store
-.gitignore
-
 node_modules/
-dist/
+.DS_Store
+.next/
+.vercel
 package-lock.json
+yarn.lock
