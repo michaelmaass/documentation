@@ -1,34 +1,22 @@
 import { Head, Html, Main, NextScript } from 'next/document'
 
 const themeScript = `
-  let mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+  let isDarkMode = window.matchMedia('(prefers-color-scheme: dark)')
 
-  function updateTheme(savedTheme) {
-    let theme = 'system'
-    try {
-      if (!savedTheme) {
-        savedTheme = window.localStorage.theme
-      }
-      if (savedTheme === 'dark') {
-        theme = 'dark'
-        document.documentElement.classList.add('dark')
-      } else if (savedTheme === 'light') {
-        theme = 'light'
-        document.documentElement.classList.remove('dark')
-      } else if (mediaQuery.matches) {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
-    } catch {
-      theme = 'light'
+  function updateTheme(theme) {
+    theme = theme ?? window.localStorage.theme ?? 'system'
+
+    if (theme === 'dark' || (theme === 'system' && isDarkMode.matches)) {
+      document.documentElement.classList.add('dark')
+    } else if (theme === 'light' || (theme === 'system' && !isDarkMode.matches)) {
       document.documentElement.classList.remove('dark')
     }
+
     return theme
   }
 
-  function updateThemeWithoutTransitions(savedTheme) {
-    updateTheme(savedTheme)
+  function updateThemeWithoutTransitions(theme) {
+    updateTheme(theme)
     document.documentElement.classList.add('[&_*]:!transition-none')
     window.setTimeout(() => {
       document.documentElement.classList.remove('[&_*]:!transition-none')
@@ -47,8 +35,7 @@ const themeScript = `
     }
   }).observe(document.documentElement, { attributeFilter: ['data-theme'], attributeOldValue: true })
 
-  mediaQuery.addEventListener('change', updateThemeWithoutTransitions)
-  window.addEventListener('storage', updateThemeWithoutTransitions)
+  isDarkMode.addEventListener('change', () => updateThemeWithoutTransitions())
 `
 
 export default function Document() {
