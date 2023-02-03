@@ -8,7 +8,7 @@ In order to better understand the following read the [Integration Section](./int
 
 ## Config
 
-- `Custom Options`: If enabled the extra input fields be we displayed on the Edit view.
+- `Custom Options`: If enabled, the following extra input fields will be displayed on the Edit view:
 - `Title`: Toggles the **title** field.
 - `Link`: Toggles the **link** field.
 - `Lightbox`: Toggles the **lightbox** field.
